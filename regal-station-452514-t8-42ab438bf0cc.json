@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "regal-station-452514-t8",
+  "private_key_id": "42ab438bf0cc717a60946938c19d44154ea51b93",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCynuCbF+yO2z8p\nX8truBwvsTrgl99URXxrbwDmzogle7OqCUR0wMcneTzBWYfcmuv9lnhmTxQ6yJ3J\n7ZdHoC5mU6E/gyabt9LYqqNvEqPDgEj+vBnM3I+lOumOtlKTol+J6oAHIWnIFHbE\npBSrf8krUgOkSWzMBAiB5t0/lGgNrRMnxRFdw4Fl9p/tvc9ppIkDIfIOIWvfULQ8\ntUjmQ0DIjdXVlc7aEVhsNxN97TVXk/L5TNLHEy8DZ62RdiEzkyJBGKIn3jktQCdF\nP6QIm65jaOCIguUyuti92N4XoBlCbNqQJ4xLrtJwm+oZkjWssx/+uB0GezfFgev5\nS60rMldPAgMBAAECggEAL70Fo33X4/BV561qFR6OLfLsnPUKI6A0mhP/RjCBs57l\njDbQ3HFfaL3ezoAqrvuawdoy0IknC3Ttsve0fFijvgZw7KQVL/4HtI+agYeWTBxf\npfFI5fc2zv65SEKTPFDjvtz1HbLA7lAF1BVUTuemsNTJE2HqWXZkfa9hh2oXCzw4\nM2rKF/FrRanbT2pJgJ91zqfBknJnHeESobT0vY5aR64HM2o49+uC+lQmwcskQBmv\nGvfaHK8KjkijVmCRMYzdeR5YkE5inCryfFZoinNmUINDfbumBrAU/xY5Oz/lpuBe\nJU3bLn+7rQIDCAiNO8iKm/qfrhhjR40fufeTLkOocQKBgQD7wxmGsu2kn/11YENQ\nfFdKXpYjWFjQ3Duak6B2LgSBl+zbWKFgU9HOqykxhuKlpdu06ZJ6eT8D1wK1o4/n\npkTlC3iyAw51o9LmO7bRVF44lHc+FJpa0accepfI7EHTjiDgV+LViwbau1R4mgAB\n2gnbuK3iJSHyIsQt0ZIykoHg8QKBgQC1oJgjpyqseYvbOOz5Ucyg0lBkQRQFbn1p\na9GT0ForC6WTqwKAQEazhUZA/yHqm3BrEWqozI8C5TLofrZbi9QeLkS4Im4S/nBK\nt0d+NLR6ia3l/dscv/IO7R0jYizK4psqIJdQdbzX7iNv608ZIx2/W9myTSUw6WFC\nI+fLLLu8PwKBgQDFz8xtpobME50NLX6WbawUVe83hEH8kR4P3TB1ysBlpp5G1gOt\n8Q3niVqLfIT2TDQtmFwr+LoHZVfOqd320BBPusyxaW9iBT8/AOoq3VROtnBeiceh\n1hqsaLJ7/w3VkFXKj6M9z8ep8why3eVljxCx4BBXoH9kheaIbaKmM7DysQKBgGOX\ni9UA9QVeILI0pLyRfgMxT6Opi7DuxRXpaSIEPW0dFc3DF7v7gsktazh4rcBXO216\nP2IPyNttklyqHpRUOBvUgxn0xybjHe/aT/mELPKETDaw3FUHa1OD8VZVnvohB7Qx\n6sbTyJkem4/jF5xRBR7I3rZGVv5a+lmqFo/yF39BAoGBAPkKQWrn22KLRlnZ7qoX\nSimyi71JttkTIA/3OeO1nLlOMUrDk2zgDgZKmBAjkp+fywCyxX4W0w5U+TvJJIyO\nkW89/SKtqOsfz/1P4jcegQzX8o4NJlrOGUc+A/p0o7dFOQEAOmmteCfzwfpXPJGV\nSh8iUVXhHnehKvuXVfS0zQ4c\n-----END PRIVATE KEY-----\n",
+  "client_email": "pd-342@regal-station-452514-t8.iam.gserviceaccount.com",
+  "client_id": "104361528277757962543",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pd-342%40regal-station-452514-t8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
