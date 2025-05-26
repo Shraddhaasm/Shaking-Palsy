@@ -113,15 +113,22 @@ import os
 st.set_page_config(page_title="Landing Page", layout="wide")
 
 # === Google Sheets Configuration ===
-SERVICE_ACCOUNT_FILE = os.path.join(os.path.dirname(__file__), "regal-station-452514-t8-42ab438bf0cc.json")
-SHEET_ID = "1FWXWAmK5B4NhYDAGi5H3twPNXg1f6vylHib4WJQR3Lw"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+
+# Load secrets from Streamlit's secrets management
+google_config = st.secrets["google_sheets"]
+SHEET_ID = google_config["sheet_id"]
+
+# Create credentials from secrets
+creds = Credentials.from_service_account_info(
+    info=google_config,
+    scopes=SCOPES
+)
 
 # ✅ Function to connect and fetch data from Google Sheets
 @st.cache_resource
 def get_username_by_email(email):
     try:
-        creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
         client = gspread.authorize(creds)
         sheet = client.open_by_key(SHEET_ID).sheet1
         data = sheet.get_all_records()
@@ -134,7 +141,7 @@ def get_username_by_email(email):
     except Exception as e:
         st.error(f"⚠ Error fetching user data: {e}")
         return None
-
+        
 # ✅ Initialize session state
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
