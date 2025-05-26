@@ -32,20 +32,22 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Google Sheets Configuration
-SERVICE_ACCOUNT_FILE = os.path.join(os.path.dirname(__file__), "hopeful-canto-451317-f9-501020437508.json")  # Ensure this JSON file is correct
 REGISTRATION_DATA_SHEET_ID = "1FWXWAmK5B4NhYDAGi5H3twPNXg1f6vylHib4WJQR3Lw"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 def connect_to_sheets(sheet_id):
-    """Establish connection to a Google Sheet."""
-    if not os.path.exists(SERVICE_ACCOUNT_FILE):
-        st.error(f"Service account file '{SERVICE_ACCOUNT_FILE}' not found.")
-        return None
-    
+    """Establish connection to a Google Sheet using Streamlit secrets."""
     try:
-        creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+        # Load the service account info dict from Streamlit secrets
+        service_account_info = st.secrets["gcp_service_account"]
+
+        # Create credentials from the service account info
+        creds = Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
+
+        # Authorize gspread client
         client = gspread.authorize(creds)
+
+        # Open the sheet by its ID
         sheet = client.open_by_key(sheet_id).sheet1
         return sheet
     except Exception as e:
@@ -54,7 +56,6 @@ def connect_to_sheets(sheet_id):
 
 # Connect to Google Sheets
 sheet = connect_to_sheets(REGISTRATION_DATA_SHEET_ID)
-
 # Validation functions
 def validate_name_input(new_value):
     """Allows only alphabets and spaces"""
