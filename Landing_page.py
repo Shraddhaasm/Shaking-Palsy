@@ -112,17 +112,19 @@ import os
 # ✅ Page configuration
 st.set_page_config(page_title="Landing Page", layout="wide")
 
-# Load from secrets
-google_config = st.secrets["google_sheets"]
+import gspread
+from google.oauth2.service_account import Credentials
+import streamlit as st
 
+REGISTRATION_DATA_SHEET_ID = "1FWXWAmK5B4NhYDAGi5H3twPNXg1f6vylHib4WJQR3Lw"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 @st.cache_resource
 def get_username_by_email(email):
     try:
-        creds = Credentials.from_service_account_info(google_config, scopes=SCOPES)
+        creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
         client = gspread.authorize(creds)
-        sheet = client.open_by_key(google_config["sheet_id"]).sheet1
+        sheet = client.open_by_key(REGISTRATION_DATA_SHEET_ID).sheet1
         data = sheet.get_all_records()
 
         for record in data:
@@ -132,6 +134,7 @@ def get_username_by_email(email):
     except Exception as e:
         st.error(f"⚠ Error fetching user data: {e}")
         return None
+
         
 # ✅ Initialize session state
 if "logged_in" not in st.session_state:
