@@ -36,26 +36,16 @@ REGISTRATION_DATA_SHEET_ID = "1FWXWAmK5B4NhYDAGi5H3twPNXg1f6vylHib4WJQR3Lw"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 def connect_to_sheets(sheet_id):
-    """Establish connection to a Google Sheet using Streamlit secrets."""
     try:
-        # Load the service account info dict from Streamlit secrets
-        service_account_info = st.secrets["gcp_service_account"]
-
-        # Create credentials from the service account info
-        creds = Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
-
-        # Authorize gspread client
+        creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
         client = gspread.authorize(creds)
-
-        # Open the sheet by its ID
-        sheet = client.open_by_key(sheet_id).sheet1
-        return sheet
+        return client.open_by_key(sheet_id).sheet1
     except Exception as e:
         st.error(f"Error connecting to Google Sheets: {e}")
         return None
 
-# Connect to Google Sheets
 sheet = connect_to_sheets(REGISTRATION_DATA_SHEET_ID)
+
 # Validation functions
 def validate_name_input(new_value):
     """Allows only alphabets and spaces"""
