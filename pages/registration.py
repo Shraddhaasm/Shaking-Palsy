@@ -35,21 +35,16 @@ st.markdown(
 REGISTRATION_DATA_SHEET_ID = "1FWXWAmK5B4NhYDAGi5H3twPNXg1f6vylHib4WJQR3Lw"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-@st.cache_resource
-def get_username_by_email(email):
+def connect_to_sheets(sheet_id):
     try:
         creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
         client = gspread.authorize(creds)
-        sheet = client.open_by_key(REGISTRATION_DATA_SHEET_ID).sheet1
-        data = sheet.get_all_records()
-
-        for record in data:
-            if record.get("EMAILID", "").strip().lower() == email.strip().lower():
-                return record.get("NAME")
-        return None
+        return client.open_by_key(sheet_id).sheet1
     except Exception as e:
-        st.error(f"⚠ Error fetching user data: {e}")
+        st.error(f"Error connecting to Google Sheets: {e}")
         return None
+
+sheet = connect_to_sheets(REGISTRATION_DATA_SHEET_ID)
 
 # Validation functions
 def validate_name_input(new_value):
