@@ -240,23 +240,23 @@ if st.button("🏠 Home"):
 
 # Constants
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "catboost_model.cbm")
-SERVICE_ACCOUNT_FILE = "regal-station-452514-t8-42ab438bf0cc.json"
 TRAINING_DATA_SHEET_ID = "1f11K9QkJF3w2Qk3xpbEtV7YS9eHmsMsCNAKOTwCuF2Q"
 PREDICTION_SHEET_ID = "1Usg8iMlBAwMxFf9y-60Gg5gDE30rgH1Vh4_WsHAX0Es"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 print(MODEL_PATH)
+
 @st.cache_resource
 def connect_to_sheets(sheet_id):
     try:
-        creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+        creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
         client = gspread.authorize(creds)
         sheet = client.open_by_key(sheet_id).sheet1
         return sheet
     except Exception as e:
         st.error(f"⚠ Error connecting to Google Sheets: {e}")
         return None
-
+        
 training_data_sheet = connect_to_sheets(TRAINING_DATA_SHEET_ID)
 prediction_sheet = connect_to_sheets(PREDICTION_SHEET_ID)
 
