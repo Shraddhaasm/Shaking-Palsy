@@ -112,32 +112,23 @@ import os
 # ✅ Page configuration
 st.set_page_config(page_title="Landing Page", layout="wide")
 
-# === Google Sheets Configuration ===
+# Load from secrets
+google_config = st.secrets["google_sheets"]
+
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-# Load secrets from Streamlit's secrets management
-google_config = st.secrets["google_sheets"]
-SHEET_ID = google_config["sheet_id"]
-
-# Create credentials from secrets
-creds = Credentials.from_service_account_info(
-    info=google_config,
-    scopes=SCOPES
-)
-
-# ✅ Function to connect and fetch data from Google Sheets
 @st.cache_resource
 def get_username_by_email(email):
     try:
+        creds = Credentials.from_service_account_info(google_config, scopes=SCOPES)
         client = gspread.authorize(creds)
-        sheet = client.open_by_key(SHEET_ID).sheet1
+        sheet = client.open_by_key(google_config["sheet_id"]).sheet1
         data = sheet.get_all_records()
 
-        # Find the user by email (case-insensitive)
         for record in data:
             if record.get("EMAILID", "").strip().lower() == email.strip().lower():
                 return record.get("NAME")
-        return None  # If email not found
+        return None
     except Exception as e:
         st.error(f"⚠ Error fetching user data: {e}")
         return None
