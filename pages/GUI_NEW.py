@@ -164,7 +164,7 @@ import streamlit as st
 import pydicom
 import numpy as np
 import tensorflow as tf
-import cv2
+#import cv2
 import matplotlib.pyplot as plt
 from io import BytesIO
 
@@ -235,17 +235,30 @@ model = load_model()
 # DICOM Image Preprocessing
 # -------------------------------
 def preprocess_dicom(dicom_data):
-    """Preprocess the uploaded DICOM image."""
+    """Preprocess the uploaded DICOM image (without cv2)."""
     try:
+        # Convert DICOM to float32 numpy array
         image = dicom_data.pixel_array.astype(np.float32)
-        image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-        image = cv2.resize(image, (224, 224))
-        image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+
+        # Normalize to 0–255
+        image = (image - np.min(image)) / (np.max(image) - np.min(image)) * 255.0
+        image = image.astype(np.uint8)
+
+        # Resize to (224, 224)
+        image = tf.image.resize(image[..., np.newaxis], (224, 224)).numpy()
+
+        # Convert grayscale to RGB by duplicating channels
+        image = np.repeat(image, 3, axis=-1)
+
+        # Preprocess for EfficientNet
         image = tf.keras.applications.efficientnet.preprocess_input(image)
+
         return np.expand_dims(image, axis=0)
+
     except Exception as e:
         st.error(f"❌ Error processing DICOM file: {e}")
         return None
+
 
 # -------------------------------
 # File Uploader for DICOM Files
