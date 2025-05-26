@@ -223,7 +223,12 @@ st.markdown('<p class="big-title">🧠 Parkinson Prediction System</p>', unsafe_
 @st.cache_resource
 def load_model():
     #model_path = "C:/Users/Shraddha/PD PROJECT/efficientnetb0_model.keras"
-    model_path = os.path.join(os.path.dirname(__file__), "efficientnetb0_model.keras")
+    # Get current script directory (should be 'pages')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Model path is in the same directory as this script
+    model_path = os.path.join(current_dir, "efficientnetb0_model.keras")
+    
     try:
         model = tf.keras.models.load_model(model_path)
         return model
