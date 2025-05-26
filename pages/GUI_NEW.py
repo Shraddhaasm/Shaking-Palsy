@@ -167,6 +167,7 @@ import tensorflow as tf
 #import cv2
 import matplotlib.pyplot as plt
 from io import BytesIO
+import os
 
 # -------------------------------
 # Streamlit Page Configuration
@@ -221,7 +222,8 @@ st.markdown('<p class="big-title">🧠 Parkinson Prediction System</p>', unsafe_
 # -------------------------------
 @st.cache_resource
 def load_model():
-    model_path = "C:/Users/Shraddha/PD PROJECT/efficientnetb0_model.keras"
+    #model_path = "C:/Users/Shraddha/PD PROJECT/efficientnetb0_model.keras"
+    model_path = os.path.join(os.path.dirname(__file__), "efficientnetb0_model.keras")
     try:
         model = tf.keras.models.load_model(model_path)
         return model
